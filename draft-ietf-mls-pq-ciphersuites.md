@@ -148,7 +148,7 @@ The first eight ciphersuites defined in this document combine a post-quantum (or
 
 The last three cipher suites also use post-quantum signature algorithms.
 
-For security considerations related to the KEMs used in this document, please see the documents that define those KEMs {{!I-D.ietf-hpke-pq}} and {{!I-D.irtf-cfrg-hybrid-kems}}.
+For security considerations related to the KEMs used in this document, please see the documents that define those KEMs {{!I-D.ietf-hpke-pq}} and {{?I-D.irtf-cfrg-hybrid-kems}}.
 For security considerations related to the post-quantum signature algorithms used in this document, please see {{!I-D.ietf-tls-mldsa}} and {{!RFC9881}}.
 
 --- back
