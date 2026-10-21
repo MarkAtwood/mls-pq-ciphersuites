@@ -84,7 +84,7 @@ Following the pattern of base MLS, we define several variations, to allow for us
 * ML-KEM-768 with ML-DSA-65 (192-bit security, NIST, pure PQ KEM + PQ signature)
 * ML-KEM-1024 with ML-DSA-87 (256-bit security, NIST, pure PQ KEM + PQ signature)
 
-The security level given is that of the whole cipher suite, which is set by its weakest component.
+The security level given is that of the cipher suite as a whole, which is why the P-384 entries say 192-bit while {{RFC9420}} names its P-384 cipher suite `MLS_256_DHKEMP384_AES256GCM_SHA384_P384`.
 The first two entries are each registered twice: once with AES128 GCM and SHA-256, and once with AES256 GCM and SHA-384.
 
 Some parts of the community wish to support the 128-bit security level with the same Authenticated Encryption with Associated Data (AEAD) {{!RFC5116}} algorithms and hash function as used in the default cipher suite registered in {{!RFC9420}} (AES128 GCM {{GCM}} and HMAC {{!RFC2104}} with SHA-256 {{SHS}}), while other parts of the community would like to follow recent recommendations to transition immediately to AES256 GCM {{GCM}} and HMAC {{!RFC2104}} with SHA-384 {{SHS}}.
