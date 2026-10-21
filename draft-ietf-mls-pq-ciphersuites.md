@@ -4,7 +4,6 @@ abbrev: MLS Cipher Suites with ML-KEM
 docname: draft-ietf-mls-pq-ciphersuites-latest
 ipr: trust200902
 submissiontype: IETF  # also: "independent", "IAB", or "IRTF"
-area: art
 workgroup: MLS
 area: sec
 category: std
@@ -17,7 +16,7 @@ keyword:
  - PQ/T
  - hybrid
  - hybrid KEM
- - Key Exchange Mechanism
+ - Key Encapsulation Mechanism
 
 stand_alone: yes
 pi: [toc, sortrefs, symrefs]
@@ -53,13 +52,13 @@ informative:
 --- abstract
 
 This document registers new cipher suites for Messaging Layer Security (MLS) based on "post-quantum" algorithms, which are intended to be resilient to attack by quantum computers.
-These cipher suites are constructed using the new Module-Lattice Key Encapsulation Mechanism (ML-KEM), optionally in combination with traditional elliptic curve KEMs, together with appropriate authenticated encryption, hash, and signature algorithms.
+These cipher suites are constructed using the new Module-Lattice-Based Key-Encapsulation Mechanism (ML-KEM), optionally in combination with traditional elliptic curve KEMs, together with appropriate authenticated encryption, hash, and signature algorithms.
 
 --- middle
 
 # Introduction
 
-The potential availability of a cryptographically-relevant quantum computer has caused concern that well-funded adversaries could overturn long-held assumptions about the security assurances of classical Key Exchange Mechanisms (KEMs) and classical cryptographic signatures, which are fundamental to modern security protocols, including the MLS protocol {{!RFC9420}}.
+The potential availability of a cryptographically-relevant quantum computer has caused concern that well-funded adversaries could overturn long-held assumptions about the security assurances of classical Key Encapsulation Mechanisms (KEMs) and classical cryptographic signatures, which are fundamental to modern security protocols, including the MLS protocol {{!RFC9420}}.
 
 Of particular concern are "harvest now, decrypt later" attacks, by which an attacker could collect encrypted traffic now, before a quantum computer exists, and later use a quantum computer to break the confidentiality protections on the collected traffic.
 
@@ -67,37 +66,40 @@ In response to these concerns, the cryptographic community has defined "post-qua
 Symmetric algorithms can be made post-quantum secure simply by using longer keys and hashes.
 For asymmetric operations such as KEMs and signatures, entirely new algorithms are needed.
 
-In this document, we define ciphersuites that use the post-quantum secure Module-Lattice-Based KEM (ML-KEM) {{MLKEM}} together with appropriate symmetric algorithms, and either traditional or Module-Lattice-Based Digital Signature Algorithm (ML-DSA) {{MLDSA}} post-quantum signature algorithms.
+In this document, we define cipher suites that use the post-quantum secure Module-Lattice-Based Key-Encapsulation Mechanism (ML-KEM) {{MLKEM}} together with appropriate symmetric algorithms, and either traditional or Module-Lattice-Based Digital Signature Algorithm (ML-DSA) {{MLDSA}} post-quantum signature algorithms.
 The traditional signature cipher suites address the risk of "harvest now, decrypt later" attacks, while not taking on the additional cost of post-quantum signatures.
-The cipher suites with post-quantum signatures use only post-quantum KEMs.
+The cipher suites with post-quantum signatures use either a pure post-quantum KEM or a PQ/T hybrid KEM.
 
 # Post-quantum KEM Cipher Suites
 
 Following the pattern of base MLS, we define several variations, to allow for users that prefer to only use NIST-approved cryptography, users that prefer a higher security level, and users that prefer a PQ/traditional hybrid KEM over pure ML-KEM:
 
-* ML-KEM-768 + X25519 (128-bit security, Non-NIST, PQ/T hybrid KEM)
-* ML-KEM-768 + P-256 (128-bit security, NIST, PQ/T hybrid KEM)
-* ML-KEM-1024 + P-384 (192-bit security, NIST, PQ/T hybrid KEM)
-* ML-KEM-768 (128-bit security, Non-NIST, pure PQ KEM)
-* ML-KEM-768 (128-bit security, NIST, pure PQ KEM)
-* ML-KEM-1024 (192-bit security, NIST, pure PQ KEM)
-* ML-KEM-768 + X25519 (128-bit security, Non-NIST, PQ/T hybrid KEM + PQ signature)
-* ML-KEM-768 (192-bit security, NIST, pure PQ)
-* ML-KEM-1024 (256-bit security, NIST, pure PQ)
+* ML-KEM-768 + X25519 with Ed25519 (128-bit security, Non-NIST, PQ/T hybrid KEM)
+* ML-KEM-768 + P-256 with ECDSA P-256 (128-bit security, NIST, PQ/T hybrid KEM)
+* ML-KEM-1024 + P-384 with ECDSA P-384 (192-bit security, NIST, PQ/T hybrid KEM)
+* ML-KEM-768 with Ed25519 (128-bit security, Non-NIST, pure PQ KEM)
+* ML-KEM-768 with ECDSA P-256 (128-bit security, NIST, pure PQ KEM)
+* ML-KEM-1024 with ECDSA P-384 (192-bit security, NIST, pure PQ KEM)
+* ML-KEM-768 + X25519 with ML-DSA-44 (128-bit security, Non-NIST, PQ/T hybrid KEM + PQ signature)
+* ML-KEM-768 with ML-DSA-65 (192-bit security, NIST, pure PQ KEM + PQ signature)
+* ML-KEM-1024 with ML-DSA-87 (256-bit security, NIST, pure PQ KEM + PQ signature)
 
-Some parts of the community wish to support the 128-bit security level with the same Authenticated Encryption with Authenticated Data (AEAD) {{!RFC5116}} algorithms and hash function as used in the default cipher suite registered in {{!RFC9420}} (AES128 GCM {{GCM}} and HMAC {{!RFC2104}} with SHA-256 {{SHS}}), while other parts of the community would like to follow recent recommendations to transition immediately to AES256 GCM {{GCM}} and HMAC {{!RFC2104}} with SHA-384 {{SHS}}.
+The security level given is that of the whole cipher suite, which is set by its weakest component.
+The first two entries are each registered twice: once with AES128 GCM and SHA-256, and once with AES256 GCM and SHA-384.
+
+Some parts of the community wish to support the 128-bit security level with the same Authenticated Encryption with Associated Data (AEAD) {{!RFC5116}} algorithms and hash function as used in the default cipher suite registered in {{!RFC9420}} (AES128 GCM {{GCM}} and HMAC {{!RFC2104}} with SHA-256 {{SHS}}), while other parts of the community would like to follow recent recommendations to transition immediately to AES256 GCM {{GCM}} and HMAC {{!RFC2104}} with SHA-384 {{SHS}}.
 
 For the cipher suites at the 192-bit or 256-bit security levels, we use AES256 GCM {{GCM}} as the AEAD algorithm, and HMAC {{!RFC2104}} with SHA-384 {{SHS}} as the hash function.
 
-ML-KEM uses the SHAKE and SHA-3 algorithms internally (see Section 4.1 of {{FIPS202}}).
+ML-KEM uses the SHAKE and SHA-3 algorithms {{FIPS202}} internally (see Section 4.1 of {{MLKEM}}).
 Likewise the three hybrid KEMs {{!I-D.irtf-cfrg-concrete-hybrid-kems}} used in this document use SHAKE as a Pseudo-Random Generator (PRG) and SHA-3 as a Key Derivation Function (KDF) inside the hybrid combiner.
 
 MLS extensively uses the two-stage KDF functions `Extract` and `Expand` defined in {{Section 4.2 of !I-D.ietf-hpke-hpke}} to derive keys in the ratchet tree {{Section 7.4 of RFC9420}}, the key schedule {{Section 8 of RFC9420}}, and the secret tree {{Section 9 of RFC9420}}.
 In particular, MLS uses the `Extract` function to incorporate commit secrets and pre-shared keys into the key schedule.
 As {{!I-D.ietf-hpke-pq}} does not define either function for "single-stage" KDFs like SHAKE (see {{Section 5 of !I-D.ietf-hpke-pq}}), the cipher suites defined here use the HMAC-based KDF (HKDF) algorithms HKDF-SHA384 and HKDF-SHA256 for the KDF functions used inside MLS.
 
-Finally, one of cipher suites at the 128-bit security level, uses the same hybrid KEM as the first cipher suite, the ChaCha20-Poly130 {{!RFC8439}} AEAD algorithm, HMAC with SHA-384, and the pure PQ signature algorithm ML-DSA-44.
-The choice of ChaCha20-Poly130 was selected for acceptable performance when implemented entirely in software.
+Finally, one of the cipher suites at the 128-bit security level uses the same hybrid KEM as the first cipher suite, the ChaCha20-Poly1305 {{!RFC8439}} AEAD algorithm, HMAC with SHA-384, and the pure PQ signature algorithm ML-DSA-44.
+ChaCha20-Poly1305 was chosen for acceptable performance when implemented entirely in software.
 
 For the PQ/T hybrid KEMs and the pure ML-KEM HPKE integration, we use the KEMs defined in {{!I-D.ietf-hpke-pq}}.
 The signature schemes for ML-DSA-44, ML-DSA-65, and ML-DSA-87 {{MLDSA}} are defined in {{!I-D.ietf-tls-mldsa}}.
@@ -144,11 +146,11 @@ The hash used for the MLS transcript hash is the one referenced in the cipher su
 
 # Security Considerations
 
-The first eight ciphersuites defined in this document combine a post-quantum (or PQ/T hybrid) KEM with a traditional signature algorithm. As such, they are designed to provide confidentiality against quantum and classical attacks, but provide authenticity against classical attacks only.  Thus, these cipher suites do not provide full post-quantum security, only post-quantum confidentiality.
+The first eight cipher suites defined in this document combine a post-quantum (or PQ/T hybrid) KEM with a traditional signature algorithm. As such, they are designed to provide confidentiality against quantum and classical attacks, but provide authenticity against classical attacks only.  Thus, these cipher suites do not provide full post-quantum security, only post-quantum confidentiality.
 
 The last three cipher suites also use post-quantum signature algorithms.
 
-For security considerations related to the KEMs used in this document, please see the documents that define those KEMs {{!I-D.ietf-hpke-pq}} and {{!I-D.irtf-cfrg-hybrid-kems}}.
+For security considerations related to the KEMs used in this document, please see the documents that define those KEMs: {{!I-D.ietf-hpke-pq}}, {{!I-D.irtf-cfrg-concrete-hybrid-kems}}, and {{!I-D.irtf-cfrg-hybrid-kems}}.
 For security considerations related to the post-quantum signature algorithms used in this document, please see {{!I-D.ietf-tls-mldsa}} and {{!RFC9881}}.
 
 --- back
