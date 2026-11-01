@@ -74,17 +74,16 @@ The cipher suites with post-quantum signatures use either a pure post-quantum KE
 
 Following the pattern of base MLS, we define several variations, to allow for users that prefer to only use NIST-approved cryptography, users that prefer a higher security level, and users that prefer a PQ/traditional hybrid KEM over pure ML-KEM:
 
-* ML-KEM-768 + X25519 with Ed25519 (128-bit security, Non-NIST, PQ/T hybrid KEM)
-* ML-KEM-768 + P-256 with ECDSA P-256 (128-bit security, NIST, PQ/T hybrid KEM)
-* ML-KEM-1024 + P-384 with ECDSA P-384 (192-bit security, NIST, PQ/T hybrid KEM)
-* ML-KEM-768 with Ed25519 (128-bit security, Non-NIST, pure PQ KEM)
-* ML-KEM-768 with ECDSA P-256 (128-bit security, NIST, pure PQ KEM)
-* ML-KEM-1024 with ECDSA P-384 (192-bit security, NIST, pure PQ KEM)
-* ML-KEM-768 + X25519 with ML-DSA-44 (128-bit security, Non-NIST, PQ/T hybrid KEM + PQ signature)
-* ML-KEM-768 with ML-DSA-65 (192-bit security, NIST, pure PQ KEM + PQ signature)
-* ML-KEM-1024 with ML-DSA-87 (256-bit security, NIST, pure PQ KEM + PQ signature)
+* ML-KEM-768 + X25519 (128-bit security, Non-NIST, PQ/T hybrid KEM)
+* ML-KEM-768 + P-256 (128-bit security, NIST, PQ/T hybrid KEM)
+* ML-KEM-1024 + P-384 (192-bit security, NIST, PQ/T hybrid KEM)
+* ML-KEM-768 (128-bit security, Non-NIST, pure PQ KEM)
+* ML-KEM-768 (128-bit security, NIST, pure PQ KEM)
+* ML-KEM-1024 (192-bit security, NIST, pure PQ KEM)
+* ML-KEM-768 + X25519 (128-bit security, Non-NIST, PQ/T hybrid KEM + PQ signature)
+* ML-KEM-768 (192-bit security, NIST, pure PQ)
+* ML-KEM-1024 (256-bit security, NIST, pure PQ)
 
-The security level given is that of the cipher suite as a whole, which is why the P-384 entries say 192-bit while {{RFC9420}} names its P-384 cipher suite `MLS_256_DHKEMP384_AES256GCM_SHA384_P384`.
 The first two entries are each registered twice: once with AES128 GCM and SHA-256, and once with AES256 GCM and SHA-384.
 
 Some parts of the community wish to support the 128-bit security level with the same Authenticated Encryption with Associated Data (AEAD) {{!RFC5116}} algorithms and hash function as used in the default cipher suite registered in {{!RFC9420}} (AES128 GCM {{GCM}} and HMAC {{!RFC2104}} with SHA-256 {{SHS}}), while other parts of the community would like to follow recent recommendations to transition immediately to AES256 GCM {{GCM}} and HMAC {{!RFC2104}} with SHA-384 {{SHS}}.
@@ -150,10 +149,15 @@ The first eight cipher suites defined in this document combine a post-quantum (o
 
 The last three cipher suites also use post-quantum signature algorithms.
 
-For security considerations related to the KEMs used in this document, please see the documents that define those KEMs: {{!I-D.ietf-hpke-pq}}, {{!I-D.irtf-cfrg-concrete-hybrid-kems}}, and {{!I-D.irtf-cfrg-hybrid-kems}}.
+For security considerations related to the KEMs used in this document, please see the documents that define those KEMs: {{!I-D.ietf-hpke-pq}}, {{!I-D.irtf-cfrg-hybrid-kems}}, and {{!I-D.irtf-cfrg-concrete-hybrid-kems}}.
 For security considerations related to the post-quantum signature algorithms used in this document, please see {{!I-D.ietf-tls-mldsa}} and {{!RFC9881}}.
 
 --- back
+
+# Acknowledgments
+{:numbered="false"}
+
+Mark Atwood provided useful corrections and clarifications.
 
 # Acknowledgments
 {:numbered="false"}
