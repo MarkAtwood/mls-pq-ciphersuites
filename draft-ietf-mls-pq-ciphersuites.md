@@ -109,36 +109,36 @@ The signature schemes for ML-DSA-44, ML-DSA-65, and ML-DSA-87 {{MLDSA}} are defi
 
 This document requests that IANA add the following entries to the "MLS Cipher Suites" registry, replacing "XXXX" with the RFC number assigned to this document:
 
-| Value | Name                                            | Rec | Reference |
-|:======|:================================================|:====|:========|
-| TBD1  | MLS_128_MLKEM768X25519_AES128GCM_SHA256_Ed25519 |  Y  | RFCXXXX |
-| TBD2  | MLS_128_MLKEM768X25519_AES256GCM_SHA384_Ed25519 |  Y  | RFCXXXX |
-| TBD3  | MLS_128_MLKEM768P256_AES128GCM_SHA256_P256      |  Y  | RFCXXXX |
-| TBD4  | MLS_128_MLKEM768P256_AES256GCM_SHA384_P256      |  Y  | RFCXXXX |
-| TBD5  | MLS_192_MLKEM1024P384_AES256GCM_SHA384_P384     |  Y  | RFCXXXX |
-| TBD6  | MLS_128_MLKEM768_AES256GCM_SHA384_Ed25519       |  Y  | RFCXXXX |
-| TBD7  | MLS_128_MLKEM768_AES256GCM_SHA384_P256          |  Y  | RFCXXXX |
-| TBD8  | MLS_192_MLKEM1024_AES256GCM_SHA384_P384         |  Y  | RFCXXXX |
-| TBD9  | MLS_128_MLKEM768X25519_CHACHA20POLY1305_SHA384_MLDSA44 | Y | RFCXXXX |
-| TBD10 | MLS_192_MLKEM768_AES256GCM_SHA384_MLDSA65       |  Y  | RFCXXXX |
-| TBD11 | MLS_256_MLKEM1024_AES256GCM_SHA384_MLDSA87      |  Y  | RFCXXXX |
+| Value  | Name                                            | Rec | Reference |
+|:=======|:================================================|:====|:========|
+| 0x0010 | MLS_128_MLKEM768X25519_AES128GCM_SHA256_Ed25519 |  Y  | RFCXXXX |
+| 0x0011 | MLS_128_MLKEM768X25519_AES256GCM_SHA384_Ed25519 |  Y  | RFCXXXX |
+| 0x0012 | MLS_128_MLKEM768P256_AES128GCM_SHA256_P256      |  Y  | RFCXXXX |
+| 0x0013 | MLS_128_MLKEM768P256_AES256GCM_SHA384_P256      |  Y  | RFCXXXX |
+| 0x0014 | MLS_192_MLKEM1024P384_AES256GCM_SHA384_P384     |  Y  | RFCXXXX |
+| 0x0015 | MLS_128_MLKEM768_AES256GCM_SHA384_Ed25519       |  Y  | RFCXXXX |
+| 0x0016 | MLS_128_MLKEM768_AES256GCM_SHA384_P256          |  Y  | RFCXXXX |
+| 0x0017 | MLS_192_MLKEM1024_AES256GCM_SHA384_P384         |  Y  | RFCXXXX |
+| 0x0020 | MLS_128_MLKEM768X25519_CHACHA20POLY1305_SHA384_MLDSA44 | Y | RFCXXXX |
+| 0x0021 | MLS_192_MLKEM768_AES256GCM_SHA384_MLDSA65       |  Y  | RFCXXXX |
+| 0x0022 | MLS_256_MLKEM1024_AES256GCM_SHA384_MLDSA87      |  Y  | RFCXXXX |
 
 
 The mapping of cipher suites to HPKE primitives {{!I-D.ietf-hpke-hpke}}, HMAC hash functions, and TLS signature schemes {{!I-D.ietf-tls-rfc8446bis}} is as follows:
 
-| Value | KEM     | KDF    | AEAD   | Hash   | Signature              |
-|:======|:========|:=======|:=======|:=======|:=======================|
-| TBD1  | 0x647a  | 0x0001 | 0x0001 | SHA256 | ed25519                |
-| TBD2  | 0x647a  | 0x0002 | 0x0002 | SHA384 | ed25519                |
-| TBD3  | 0x0050  | 0x0001 | 0x0001 | SHA256 | ecdsa_secp256r1_sha256 |
-| TBD4  | 0x0050  | 0x0002 | 0x0002 | SHA384 | ecdsa_secp256r1_sha256 |
-| TBD5  | 0x0051  | 0x0002 | 0x0002 | SHA384 | ecdsa_secp384r1_sha384 |
-| TBD6  | 0x0041  | 0x0002 | 0x0002 | SHA384 | ed25519                |
-| TBD7  | 0x0041  | 0x0002 | 0x0002 | SHA384 | ecdsa_secp256r1_sha256 |
-| TBD8  | 0x0042  | 0x0002 | 0x0002 | SHA384 | ecdsa_secp384r1_sha384 |
-| TBD9  | 0x647a  | 0x0002 | 0x0003 | SHA384 | mldsa44                |
-| TBD10 | 0x0041  | 0x0002 | 0x0002 | SHA384 | mldsa65                |
-| TBD11 | 0x0042  | 0x0002 | 0x0002 | SHA384 | mldsa87                |
+| Value  | KEM     | KDF    | AEAD   | Hash   | Signature              |
+|:=======|:========|:=======|:=======|:=======|:=======================|
+| 0x0010 | 0x647a  | 0x0001 | 0x0001 | SHA256 | ed25519                |
+| 0x0011 | 0x647a  | 0x0002 | 0x0002 | SHA384 | ed25519                |
+| 0x0012 | 0x0050  | 0x0001 | 0x0001 | SHA256 | ecdsa_secp256r1_sha256 |
+| 0x0013 | 0x0050  | 0x0002 | 0x0002 | SHA384 | ecdsa_secp256r1_sha256 |
+| 0x0014 | 0x0051  | 0x0002 | 0x0002 | SHA384 | ecdsa_secp384r1_sha384 |
+| 0x0015 | 0x0041  | 0x0002 | 0x0002 | SHA384 | ed25519                |
+| 0x0016 | 0x0041  | 0x0002 | 0x0002 | SHA384 | ecdsa_secp256r1_sha256 |
+| 0x0017 | 0x0042  | 0x0002 | 0x0002 | SHA384 | ecdsa_secp384r1_sha384 |
+| 0x0020 | 0x647a  | 0x0002 | 0x0003 | SHA384 | mldsa44                |
+| 0x0021 | 0x0041  | 0x0002 | 0x0002 | SHA384 | mldsa65                |
+| 0x0022 | 0x0042  | 0x0002 | 0x0002 | SHA384 | mldsa87                |
 
 The hash used for the MLS transcript hash is the one referenced in the cipher suite name. "SHA256" and "SHA384" refer to the SHA-256 and SHA-384 functions defined in {{SHS}}.
 
